@@ -85,6 +85,8 @@ type CertificatePolicyReconciler struct {
 	TargetK8sConfig *rest.Config
 }
 
+var doPanic = true
+
 //+kubebuilder:rbac:groups=policy.open-cluster-management.io,resources=certificatepolicies,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=policy.open-cluster-management.io,resources=certificatepolicies/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=policy.open-cluster-management.io,resources=certificatepolicies/finalizers,verbs=update
@@ -98,6 +100,10 @@ type CertificatePolicyReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.9.2/pkg/reconcile
 func (r *CertificatePolicyReconciler) Reconcile(ctx context.Context, request ctrl.Request) (ctrl.Result, error) {
+	if doPanic {
+		panic("be broken please")
+	}
+
 	reqLogger := log.WithValues("Request.Namespace", request.Namespace, "Request.Name", request.Name)
 	reqLogger.Info("Reconciling CertificatePolicy")
 
